@@ -15,7 +15,8 @@ class Grid {};
 
 class Game {};
 
-void create_grid(int width, int height);
+void create_grid(int width, int height) {
+}
 
 // Snake Game entry point
 int main() {
