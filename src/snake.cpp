@@ -1,13 +1,13 @@
 #include "snake.hpp"
 #include "globals.hpp"
+#include "grid.hpp"
 #include "raylib.h"
-
 #include <string>
 #include <unordered_set>
 using std::pair;
 using std::unordered_set;
 
-Snake::Snake() {
+Snake::Snake() : grid(nullptr) { // initialize grid to nullptr
     dir = Direction::Right;
     head = { 30, 30 };
     // Initialize body from tail to head: [tail ... head]
@@ -58,6 +58,16 @@ void Snake::move() {
         break;
     }
 
+    // Out of bounds
+    if (grid) {
+        int rows = grid->rows;
+        int cols = grid->cols;
+
+        // add +rows/cols before modulo to handle negative movement
+        new_head.first = (new_head.first + rows) % rows;
+        new_head.second = (new_head.second + cols) % cols;
+    }
+
     // Check collision
     if (body_set.count(new_head)) {
         status_msg = "Game Over";
@@ -81,8 +91,8 @@ void Snake::move() {
         head = new_head;
     }
 
-    status_msg = "Head: " + std::to_string(head.first) + ", " +
-                 std::to_string(head.second);
+    // status_msg = "Head: " + std::to_string(head.first) + ", " +
+    // std::to_string(head.second);
 }
 
 void Snake::eat(pair<int, int> pos) {

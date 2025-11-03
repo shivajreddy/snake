@@ -3,21 +3,14 @@
 #include "globals.hpp"
 #include "raylib.h"
 #include <deque>
-
 #include <unordered_set>
 #include <utility>
 using std::deque;
 using std::pair;
 using std::unordered_set;
 
-/*
-. . . . . . . . . . .
-. . . . . . . . . . .
-. . - - - - . . . . .
-. . . . . . . . . . .
-. . . . . . . . . . .
-. . . . . . . . . . .
-*/
+// Forward Declaration - we are telling compiler that Grid exists
+class Grid;
 
 enum class Direction {
     Left,
@@ -33,8 +26,10 @@ struct PairHash {
 };
 
 class Snake {
+
 public:
     Direction dir;
+    Grid* grid;
 
 public:
     Snake();

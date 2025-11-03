@@ -1,7 +1,7 @@
 #pragma once
 
 #include "raylib.h"
-#include "snake.hpp"
+// #include "snake.hpp"
 #include <vector>
 
 class Cell {
@@ -12,17 +12,20 @@ public:
     Cell(Color color);
 };
 
+class Snake;
+
 class Grid {
+
 public:
+    Snake* snake;
     int rows;
     int cols;
     float cell_width;
     float cell_height;
     std::vector<std::vector<Cell>> cells;
-    Snake& snake;
 
 public:
-    Grid(Snake& snake);
+    Grid();
     void draw();
     void generate_food();
 };

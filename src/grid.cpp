@@ -17,7 +17,7 @@ Cell::Cell(Color color = PURPLE) : color(color) {
 
 std::string s = "";
 // GRID IMPLEMENTATION
-Grid::Grid(Snake& _snake) : snake(_snake) {
+Grid::Grid() : snake(nullptr) {
     // Calculate the no.of rows & cols
     float width = GetScreenWidth(), height = GetScreenHeight();
     int cell_count = 50; // the number of hor./ver. cells
@@ -46,7 +46,7 @@ void Grid::generate_food() {
     do {
         random_r = row_dist(gen);
         random_c = col_dist(gen);
-    } while (snake.body_set.count({ random_r, random_c }));
+    } while (snake->body_set.count({ random_r, random_c }));
     food_pos = { random_r, random_c };
     // printf("Food pos %d,%d  %d:%d\n", rows, cols, random_r, random_c);
 }

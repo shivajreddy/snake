@@ -13,7 +13,9 @@ int main() {
     SetTargetFPS(GAME_FPS);
 
     Snake snake = Snake();
-    Grid grid = Grid(snake);
+    Grid grid = Grid();
+    grid.snake = &snake;
+    snake.grid = &grid;
 
     double prev_time = 0;
 
