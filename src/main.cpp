@@ -20,6 +20,7 @@ int main() {
 
     double prev_time = 0;
 
+    game_is_running = true;
     // Main game loop
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -34,8 +35,12 @@ int main() {
         }
 
         grid.draw();
-        snake.draw();
-        DrawText(status_msg.c_str(), 20, 20, 30, DARKBLUE);
+
+        if (game_is_running) snake.draw();
+
+        std::string gs = "Score: " + std::to_string(game_score);
+        DrawText(gs.c_str(), 20, 10, 30, DARKBLUE);
+        DrawText(status_msg.c_str(), 20, 40, 30, DARKBLUE);
 
         // --- INPUT LOGIC ---
         if (IsKeyPressed(KEY_RIGHT)) snake.change_direction(Direction::Right);

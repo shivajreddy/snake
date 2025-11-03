@@ -5,6 +5,7 @@
 #include <deque>
 
 #include <unordered_set>
+#include <utility>
 using std::deque;
 using std::pair;
 using std::unordered_set;
@@ -25,6 +26,12 @@ enum class Direction {
     Down,
 };
 
+struct PairHash {
+    std::size_t operator()(const std::pair<int, int>& p) const noexcept {
+        return std::hash<int>()(p.first) ^ (std::hash<int>()(p.second) << 1);
+    }
+};
+
 class Snake {
 public:
     Direction dir;
@@ -37,5 +44,5 @@ public:
     void eat(pair<int, int> pos);
     pair<int, int> head;
     deque<pair<int, int>> body;
-    unordered_set<pair<int, int>> body_set;
+    unordered_set<pair<int, int>, PairHash> body_set;
 };

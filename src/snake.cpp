@@ -11,7 +11,7 @@ Snake::Snake() {
     dir = Direction::Right;
     head = { 30, 30 };
     // Initialize body from tail to head: [tail ... head]
-    int start = 24, end = 30;
+    int start = 16, end = 30;
     for (; start <= end; ++start) {
         body.push_back({ 30, start });
         body_set.insert({ 30, start });
@@ -33,6 +33,10 @@ void Snake::draw() {
 
 void Snake::change_direction(Direction new_direction) {
     if (new_direction == dir) return;
+    if (dir == Direction::Down && new_direction == Direction::Up) return;
+    if (dir == Direction::Up && new_direction == Direction::Down) return;
+    if (dir == Direction::Left && new_direction == Direction::Right) return;
+    if (dir == Direction::Right && new_direction == Direction::Left) return;
     dir = new_direction;
     move();
 }
@@ -56,11 +60,14 @@ void Snake::move() {
 
     if (body_set.count(new_head)) {
         status_msg = "Game Over";
+        game_is_running = false;
         return;
     }
 
     body.push_back(new_head);
     body.pop_front();
+    body_set.erase(body.back()); // remove tail
+    body_set.insert(new_head);   // add new head
     head = new_head;
 
     status_msg = "Head: " + std::to_string(head.first) + ", " +
