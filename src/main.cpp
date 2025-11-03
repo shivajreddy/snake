@@ -1,7 +1,8 @@
-#include "game.hpp"
+#include "globals.hpp"
 #include "grid.hpp"
 #include "raylib.h"
 #include "snake.hpp"
+#include <string>
 
 #include <stdio.h>
 
@@ -25,7 +26,7 @@ int main() {
         ClearBackground(BLACK);
 
         // Every
-        double duration = 1.0d;
+        double duration = 0.4d;
         float curr_time = GetTime();
         if (curr_time - prev_time >= duration) {
             prev_time = curr_time;
@@ -34,6 +35,13 @@ int main() {
 
         grid.draw();
         snake.draw();
+        DrawText(status_msg.c_str(), 20, 20, 30, DARKBLUE);
+
+        // --- INPUT LOGIC ---
+        if (IsKeyPressed(KEY_RIGHT)) snake.change_direction(Direction::Right);
+        if (IsKeyPressed(KEY_LEFT)) snake.change_direction(Direction::Left);
+        if (IsKeyPressed(KEY_UP)) snake.change_direction(Direction::Up);
+        if (IsKeyPressed(KEY_DOWN)) snake.change_direction(Direction::Down);
 
         EndDrawing();
     }

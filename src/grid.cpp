@@ -1,5 +1,5 @@
 #include "grid.hpp"
-#include "game.hpp"
+#include "globals.hpp"
 #include "raylib.h"
 #include <algorithm>
 #include <vector>
