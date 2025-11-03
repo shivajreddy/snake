@@ -8,15 +8,12 @@
 
 // Snake Game entry point
 int main() {
-    // SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    // SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI |
-    // FLAG_WINDOW_UNDECORATED);
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_NAME);
     SetWindowMinSize(400, 300);
     SetTargetFPS(GAME_FPS);
 
-    Grid grid = Grid();
     Snake snake = Snake();
+    Grid grid = Grid(snake);
 
     double prev_time = 0;
 
@@ -26,15 +23,16 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
 
+        grid.draw();
+        // grid.generate_food(snake);
+
         // Every
-        double duration = 0.4d;
+        double duration = 0.25d;
         float curr_time = GetTime();
         if (curr_time - prev_time >= duration) {
             prev_time = curr_time;
             snake.move();
         }
-
-        grid.draw();
 
         if (game_is_running) snake.draw();
 

@@ -58,17 +58,28 @@ void Snake::move() {
         break;
     }
 
+    // Check collision
     if (body_set.count(new_head)) {
         status_msg = "Game Over";
         game_is_running = false;
         return;
     }
 
-    body.push_back(new_head);
-    body.pop_front();
-    body_set.erase(body.back()); // remove tail
-    body_set.insert(new_head);   // add new head
-    head = new_head;
+    // Check food
+    if (new_head.first == food_pos.first &&
+        new_head.second == food_pos.second) {
+        food_pos = { -1, -1 };
+        body.push_back(new_head);
+        body_set.insert(new_head);
+        head = new_head;
+        game_score++;
+    } else {
+        body.push_back(new_head);
+        body.pop_front();
+        body_set.erase(body.front()); // remove tail
+        body_set.insert(new_head);    // add new head
+        head = new_head;
+    }
 
     status_msg = "Head: " + std::to_string(head.first) + ", " +
                  std::to_string(head.second);

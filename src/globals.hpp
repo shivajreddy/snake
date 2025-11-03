@@ -12,3 +12,5 @@ extern bool game_is_running;
 
 extern std::string status_msg;
 extern int game_score;
+
+extern std::pair<int, int> food_pos;
